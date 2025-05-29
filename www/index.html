@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador Financeiro</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Gerenciador Financeiro</h1>
+            <div class="balance-label">Saldo na Conta</div>
+            <div class="balance" id="currentBalance" onclick="openBalanceModal()">R$ 45,00</div>
+            <div class="month-selector">
+                <button onclick="changeMonth(-1)">&#9664;</button>
+                <span id="currentMonth">Dezembro 2024</span>
+                <button onclick="changeMonth(1)">&#9654;</button>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section-title">💸 Despesas</div>
+            <div id="expensesList">
+            </div>
+
+            <div class="summary">
+                <h3>Resumo do Mês</h3>
+                <div class="summary-row">
+                    <span>Total de Despesas:</span>
+                    <span id="totalExpenses" style="color: #dc3545;">R$ 0,00</span>
+                </div>
+                <div class="final-balance" id="finalBalance">Saldo Final: R$ 45,00</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-buttons">
+        <button class="add-btn add-income-btn" onclick="openModal('income')" title="Adicionar Receita">+</button>
+        <button class="add-btn add-expense-btn" onclick="openModal('expense')" title="Adicionar Despesa">-</button>
+    </div>
+
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Adicionar Item</h2>
+            <form id="itemForm">
+                <div class="form-group">
+                    <label for="itemName">Nome:</label>
+                    <input type="text" id="itemName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemValue">Valor (R$):</label>
+                    <input type="number" id="itemValue" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemDetails">Detalhes (opcional):</label>
+                    <input type="text" id="itemDetails" placeholder="Descreva os detalhes">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="balanceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBalanceModal()">&times;</span>
+            <h2>Editar Saldo da Conta</h2>
+            <form id="balanceForm">
+                <div class="form-group">
+                    <label for="newBalance">Novo Saldo (R$):</label>
+                    <input type="number" id="newBalance" step="0.01" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn btn-secondary" onclick="closeBalanceModal()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
