@@ -15,6 +15,9 @@ body {
     animation: gradientShift 15s ease infinite;
     min-height: 100vh;
     padding: 20px 15px;
+    padding-bottom: 100px;
+    color: #333;
+    /* Default text color */
 }
 
 @keyframes gradientShift {
@@ -31,6 +34,116 @@ body {
     }
 }
 
+/* Dark Mode Styles */
+body.dark-mode {
+    background: linear-gradient(45deg,
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(10, 10, 10, 0.9) 25%,
+            rgba(20, 20, 20, 0.9) 50%,
+            rgba(30, 30, 30, 0.9) 75%);
+    background-size: 400% 400%;
+    color: #eee;
+}
+
+body.dark-mode .container {
+    background: rgba(40, 40, 40, 0.95);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .header {
+    background: linear-gradient(135deg, #1a1a1a, #333333);
+}
+
+body.dark-mode .month-selector {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .month-selector button {
+    color: #ddd;
+}
+
+body.dark-mode .item {
+    background: #333;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .item-name,
+body.dark-mode .section-title {
+    color: #eee;
+}
+
+body.dark-mode .item-details {
+    color: #bbb;
+}
+
+body.dark-mode .action-btn {
+    background: none;
+    /* No background on dark mode to prevent white squares */
+}
+
+body.dark-mode .edit-btn svg {
+    fill: #82b1ff;
+    /* Lighter blue for dark mode */
+}
+
+body.dark-mode .delete-btn svg {
+    fill: #ff8a80;
+    /* Lighter red for dark mode */
+}
+
+
+body.dark-mode .modal-content {
+    background: #333;
+    color: #eee;
+}
+
+body.dark-mode .modal h2 {
+    color: #eee;
+}
+
+body.dark-mode .form-group label {
+    color: #ccc;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select {
+    background: #444;
+    border-color: #555;
+    color: #eee;
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+body.dark-mode .summary {
+    background: linear-gradient(135deg, #222, #333);
+}
+
+body.dark-mode .summary h3 {
+    color: #eee;
+}
+
+body.dark-mode .summary-row {
+    color: #ddd;
+}
+
+body.dark-mode .summary-row.total {
+    border-top-color: #555;
+}
+
+body.dark-mode .bottom-menu {
+    background: #333;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .menu-btn {
+    color: #ddd;
+}
+
+
 .container {
     max-width: 400px;
     margin: 0 auto;
@@ -38,6 +151,7 @@ body {
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    margin-bottom: 30px;
 }
 
 .header {
@@ -50,27 +164,17 @@ body {
 
 .header h1 {
     font-size: 24px;
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.balance {
+/* Estilo para o "Total de Receitas" no topo */
+.top-income-display {
     font-size: 32px;
     font-weight: bold;
     margin: 10px 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.balance:hover {
-    transform: scale(1.05);
-}
-
-.balance.negative {
-    color: #ff4757;
-}
-
-.balance.positive {
     color: #2ed573;
+    /* Cor verde para receitas */
 }
 
 .balance-label {
@@ -110,43 +214,6 @@ body {
     padding: 20px;
 }
 
-.add-buttons {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    z-index: 1000;
-}
-
-.add-btn {
-    border: none;
-    color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    font-size: 24px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.add-btn:hover {
-    transform: scale(1.1);
-}
-
-.add-expense-btn {
-    background: linear-gradient(135deg, #dc3545, #c82333);
-}
-
-.add-income-btn {
-    background: linear-gradient(135deg, #28a745, #20c997);
-}
-
 .item {
     background: white;
     border-radius: 15px;
@@ -156,19 +223,8 @@ body {
     border-left: 5px solid;
     transition: all 0.3s ease;
     position: relative;
-}
-
-.item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-}
-
-.expense-item {
-    border-left-color: #dc3545;
-}
-
-.income-item {
-    border-left-color: #28a745;
+    cursor: default;
+    /* Altera o cursor padrão para indicar que não há clique simples */
 }
 
 .item-name {
@@ -188,6 +244,14 @@ body {
     font-weight: bold;
 }
 
+.expense-item {
+    border-left-color: lch(49.73% 71.35 26.18);
+}
+
+.income-item {
+    border-left-color: #28a745;
+}
+
 .expense-value {
     color: #dc3545;
 }
@@ -203,12 +267,6 @@ body {
     transform: translateY(-50%);
     display: flex;
     gap: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.item:hover .item-actions {
-    opacity: 1;
 }
 
 .action-btn {
@@ -225,6 +283,11 @@ body {
     transition: all 0.3s ease;
 }
 
+.action-btn:hover {
+    transform: scale(1.2);
+    background: rgba(220, 53, 69, 0.1);
+}
+
 .edit-btn {
     color: #007bff;
     background: rgba(0, 123, 255, 0.1);
@@ -233,10 +296,6 @@ body {
 .delete-btn {
     color: #dc3545;
     background: rgba(220, 53, 69, 0.1);
-}
-
-.action-btn:hover {
-    transform: scale(1.2);
 }
 
 .modal {
@@ -392,10 +451,270 @@ body {
 /* Classes para desabilitar botões */
 .disabled-btn {
     opacity: 0.5;
-    cursor: not-allowed;
+    cursor: not-allowed !important;
+    /* Força o cursor */
 }
 
-/* Ocultar botões quando estiver em mês passado */
-.past-month-controls .add-buttons {
-    display: none;
+/* Ocultar botões e menu quando estiver em mês passado */
+.bottom-menu.disabled-menu {
+    pointer-events: none;
+    /* Desabilita todos os cliques no menu */
+    opacity: 0.7;
+    /* Escurece para indicar desativação */
+}
+
+
+.bottom-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 15px;
+    cursor: pointer;
+    color: #333;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.menu-btn:hover {
+    transform: translateY(-3px);
+}
+
+.menu-icon {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.menu-btn:nth-child(1) .menu-icon {
+    background: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+}
+
+.menu-btn:nth-child(2) .menu-icon {
+    background: rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+}
+
+.menu-btn:hover:nth-child(1) .menu-icon {
+    background: #28a745;
+    color: white;
+}
+
+.menu-btn:hover:nth-child(2) .menu-icon {
+    background: #dc3545;
+    color: white;
+}
+
+/* Ajuste para o container principal */
+.container {
+    margin-bottom: 70px;
+    /* Espaço para o menu inferior */
+}
+
+.paid-item {
+    border-left-color: #6c757d !important;
+    opacity: 0.9;
+}
+
+.paid-item .item-name {
+    text-decoration: none;
+}
+
+.paid-item .item-value {
+    color: #6c757d !important;
+}
+
+.paid-bills-list {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.paid-bills-list .item {
+    margin-bottom: 10px;
+}
+
+.paid-badge {
+    background-color: #28a745;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.status-paid {
+    background-color: #28a745;
+    color: white;
+}
+
+.status-pending {
+    background-color: #ffbf00;
+    color: black;
+}
+
+.menu-btn:nth-child(3) .menu-icon {
+    background: rgba(108, 117, 125, 0.2);
+    color: #6c757d;
+}
+
+.menu-btn:hover:nth-child(3) .menu-icon {
+    background: #6c757d;
+    color: white;
+}
+
+.theme-toggle-container {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.theme-switch input:checked+.slider {
+    background-color: #ccc;
+}
+
+.theme-switch input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+.theme-icon {
+    font-size: 20px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.sun-icon {
+    order: 1;
+}
+
+.moon-icon {
+    order: 0;
+}
+
+body.dark-mode .slider {
+    background-color: #555;
+}
+
+body.dark-mode .theme-icon {
+    color: white;
+}
+
+.payment-status-toggle {
+    position: absolute;
+    right: 90px;
+    top: 80%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.payment-status {
+    background: none;
+    /* Remove qualquer background */
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.action-btn svg {
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover svg {
+    transform: scale(1.2);
+}
+
+.edit-btn {
+    color: #007bff;
+    background: none;
+}
+
+.delete-btn {
+    color: #dc3545;
+    background: none;
+}
+
+.action-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
 }

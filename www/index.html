@@ -4,24 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador Financeiro</title>
+    <title>Gestão de Finanças</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <h1>Gerenciador Financeiro</h1>
-            <div class="balance-label">Saldo na Conta</div>
-            <div class="balance" id="currentBalance" onclick="openBalanceModal()">R$ 45,00</div>
+            <h1>Gestão de Finanças</h1>
+            <div class="balance-label">Total de Receitas</div>
+            <div class="top-income-display" id="currentTopIncome" onclick="editTopIncome()">R$ 0,00</div>
+
             <div class="month-selector">
                 <button onclick="changeMonth(-1)">&#9664;</button>
                 <span id="currentMonth">Dezembro 2024</span>
                 <button onclick="changeMonth(1)">&#9654;</button>
             </div>
+
+            <div class="theme-toggle-container" id="themeToggleContainer">
+                <label class="theme-switch">
+                    <input type="checkbox" id="themeSwitch">
+                    <span class="slider"></span>
+                </label>
+            </div>
         </div>
 
         <div class="content">
+            <div class="section-title">💰 Receitas</div>
+            <div id="incomesList">
+            </div>
+
             <div class="section-title">💸 Despesas</div>
             <div id="expensesList">
             </div>
@@ -29,17 +41,39 @@
             <div class="summary">
                 <h3>Resumo do Mês</h3>
                 <div class="summary-row">
-                    <span>Total de Despesas:</span>
+                    <span>Total de Receitas:</span>
+                    <span id="totalIncomes" style="color: #28a745;">R$ 0,00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total de Despesas (Geral):</span>
                     <span id="totalExpenses" style="color: #dc3545;">R$ 0,00</span>
                 </div>
-                <div class="final-balance" id="finalBalance">Saldo Final: R$ 45,00</div>
+                <div class="summary-row">
+                    <span>Despesas Pagas:</span>
+                    <span id="paidExpenses" style="color: #6c757d;">R$ 0,00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Despesas Pendentes:</span>
+                    <span id="pendingExpenses" style="color: #dc3545;">R$ 0,00</span>
+                </div>
+                <div class="final-balance" id="finalBalance">Saldo Final: R$ 0,00</div>
             </div>
         </div>
     </div>
 
-    <div class="add-buttons">
-        <button class="add-btn add-income-btn" onclick="openModal('income')" title="Adicionar Receita">+</button>
-        <button class="add-btn add-expense-btn" onclick="openModal('expense')" title="Adicionar Despesa">-</button>
+    <div class="bottom-menu">
+        <button class="menu-btn" onclick="openModal('income')">
+            <span class="menu-icon">+</span>
+            <span class="menu-text">Receita</span>
+        </button>
+        <button class="menu-btn" onclick="openModal('expense')">
+            <span class="menu-icon">-</span>
+            <span class="menu-text">Despesa</span>
+        </button>
+        <button class="menu-btn" onclick="showPaidBills()">
+            <span class="menu-icon">✓</span>
+            <span class="menu-text">Pagas</span>
+        </button>
     </div>
 
     <div id="itemModal" class="modal">
@@ -62,25 +96,26 @@
                     <input type="text" id="itemDetails" placeholder="Descreva os detalhes">
                 </div>
 
+                <div class="form-group" id="paymentStatusGroup" style="display: none;">
+                    <label for="itemPaidStatus">Status:</label>
+                    <select id="itemPaidStatus">
+                        <option value="pending">Pendente</option>
+                        <option value="paid">Pago</option>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Salvar</button>
                 <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
             </form>
         </div>
     </div>
 
-    <div id="balanceModal" class="modal">
+    <div id="paidBillsModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeBalanceModal()">&times;</span>
-            <h2>Editar Saldo da Conta</h2>
-            <form id="balanceForm">
-                <div class="form-group">
-                    <label for="newBalance">Novo Saldo (R$):</label>
-                    <input type="number" id="newBalance" step="0.01" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Salvar</button>
-                <button type="button" class="btn btn-secondary" onclick="closeBalanceModal()">Cancelar</button>
-            </form>
+            <span class="close" onclick="closePaidBillsModal()">&times;</span>
+            <h2>Contas Pagas</h2>
+            <div id="paidBillsList" class="paid-bills-list">
+            </div>
         </div>
     </div>
 
